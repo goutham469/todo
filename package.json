@@ -1,5 +1,4 @@
-{
-  "homepage": "https://goutham469.github.io/todo",
+{ 
   "name": "client",
   "version": "0.1.0",
   "private": true,

@@ -15,7 +15,7 @@ function App() {
       <p>fetching data from server/API</p>
       {
         users.map(user=>
-        <div>
+        <div style={{backgroundColor:"yellow",padding:"5px",width:"fit-content"}}>
           <p>name : {user.name}</p>
           <p>class : {user.class}</p>
         </div>)

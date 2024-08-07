@@ -67,7 +67,7 @@ app.use((req, res, next) => {
         function navigate(event)
         {
             event.preventDefault()
-            window.location.href=${process.env.REACT_APP_SERVER_BASE_URL}
+            window.location.href=""
         }
     </script>
 </body>

@@ -1,17 +1,36 @@
  import { useEffect, useState } from 'react';
 import './App.css';
 
+// components
+import Login from './components/Login/Login';
+import Home from './components/Dashboard/Home';
+import { createBrowserRouter, RouterProvider } from 'react-router-dom';
+import Tasks from './components/Dashboard/Tasks/Tasks';
+
 function App() {
   console.log(process.env.REACT_APP_SERVER_BASE_URL)
 
+  const router = createBrowserRouter([
+    {
+      path:'',
+      element:<Login/>
+    },
+    {
+      path:'/home',
+      element:<Home/>,
+      children:[
+        {
+          path:'',
+          element:<Tasks/>
+        }
+      ]
+    }
+  ])
 
-  let [users,setUsers] = useState([])
-  useEffect(()=>{
-    fetch(`${process.env.REACT_APP_SERVER_BASE_URL}/api/users`).then(data=>data.json()).then(data=>{setUsers(data)})
-  },[])
+
   return (
     <div className="App">
-      <h1>client App</h1>
+      {/* <h1>client App</h1>
       <p>fetching data from server/API</p>
       {
         users.map(user=>
@@ -19,7 +38,11 @@ function App() {
           <p>name : {user.name}</p>
           <p>class : {user.class}</p>
         </div>)
-      }
+      } */}
+      {/* <Login/> */}
+
+      {/* <Home/> */}
+      <RouterProvider router={router}/>
     </div>
   );
 }

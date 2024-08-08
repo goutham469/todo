@@ -1,0 +1,27 @@
+.home-header{
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    padding: 5px; 
+
+    background-color: rgb(175, 154, 154);
+}
+.home-header-button-new{
+    height: 25px;
+    background-color: white;
+    border-radius: 5px;
+    font-size: 16px;
+}
+.home-header-profile-icon-hover{
+    position: fixed;
+}
+.home-header-profile-item{
+    background-color: yellow;
+    border-radius: 5px; 
+    padding: 3px;
+}
+li{
+    list-style-position: inside;
+    list-style-type: none;
+    text-decoration: underline; 
+}

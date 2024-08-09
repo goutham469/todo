@@ -2,6 +2,29 @@
     text-align: left;
     margin: 20px;
     padding: 10px;
-    background-color: rgb(112, 96, 96);
+    background-color: rgb(112, 107, 107);
     border-radius: 10px;
+}
+.create-new-task-input-title{
+    border-radius: 5px;
+    padding: 3px;
+    margin: 15px;
+}
+.create-new-task-textarea{
+    margin: 15px;
+    margin-top: 5px;
+    height: 100px;
+    width: 250px;
+    border-radius: 10px;
+    padding: 5px;
+}
+.create-new-task-button{ 
+    background-color: green;
+    border-radius: 5px;
+    padding: 3px;
+    color: rgb(0, 0, 0);
+}
+.create-new-task-button:hover{
+    background-color: white;
+    color: green;
 }

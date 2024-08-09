@@ -10,16 +10,22 @@ async function login_to_server(data)
     data.location = location_result;
 
 
-    let response = await fetch(`${process.env.REACT_APP_SERVER_BASE_URL}/api/user/login`,{
-        method:"POST",
-        headers:{"Content-Type":"application/json"},
-        body:JSON.stringify(data)
-    })
-    response = await response.json()
-    // console.log(response)
+    try
+    {
+        let response = await fetch(`${process.env.REACT_APP_SERVER_BASE_URL}/api/user/login`,{
+            method:"POST",
+            headers:{"Content-Type":"application/json"},
+            body:JSON.stringify(data)
+        })
+        response = await response.json()
 
-    
-    return response
+        return response
+    }
+    catch(err)
+    {
+        return {"message":"failed to fetch server, may be server is not running!"}
+    }
+    // console.log(response)
 }
 
 function getDate()

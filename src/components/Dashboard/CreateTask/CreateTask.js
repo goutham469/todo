@@ -1,23 +1,28 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
+import './CreateTask.css'
+
 function CreateTask() {
 
   const navigate = useNavigate();
 
   const [title, setTitle] = useState('');
   const [body, setBody] = useState('');
+
   const [errorMsg, setErrorMsg] = useState({
     title: '',
     body: ''
   });
+
   const [isSubmitting, setIsSubmitting] = useState(false);
 
-  async function postTask(event) {
-
+  async function postTask(event) 
+  {
     event.preventDefault();
 
-    if (validate()) {
+    if (validate()) 
+      {
       setIsSubmitting(true);
       const date = new Date();
 
@@ -26,7 +31,7 @@ function CreateTask() {
           method: "POST",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify({
-            id: '',
+            id: date.getTime(),
             username: '',
             securityKey: "12345678",
             title: title,
@@ -50,7 +55,7 @@ function CreateTask() {
         console.error("Error posting task:", error);
       } finally {
         setIsSubmitting(false);
-        // window.location.href = `${process.env.REACT_APP_SERVER_BASE_URL}/home`
+        navigate('/home');
       }
     }
   }
@@ -101,13 +106,15 @@ function CreateTask() {
           />
           {errorMsg.body && <p style={{ color: 'red' }}>{errorMsg.body}</p>}
           <br />
-          <button
-            className='create-new-task-button'
-            onClick={(event) => postTask(event)}
-            disabled={isSubmitting || !title.trim() || !body.trim()}
-          >
-            {isSubmitting ? "Adding..." : "Add task"}
-          </button>
+          <center>
+            <button
+              className='create-new-task-button'
+              onClick={(event) => postTask(event)}
+              disabled={isSubmitting || !title.trim() || !body.trim()}
+            >
+              {isSubmitting ? "Adding..." : "Add task"}
+            </button>
+          </center>
         </form>
       </div>
     </div>

@@ -48,3 +48,14 @@
     background-color:#b9adad ;
     border: 1px solid black;
 }
+.tasks-change-status-button{
+    border-radius: 5px;
+    background-color: rgb(141, 196, 144);
+    color: rgb(246, 0, 0);
+}
+.tasks-outlet{
+    background-color: rgb(130, 117, 117);
+    width: fit-content;
+    padding: 20px;
+    border-radius: 20px;
+}

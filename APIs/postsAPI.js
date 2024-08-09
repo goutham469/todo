@@ -13,6 +13,16 @@ postsAPI.post('/create-task',DBAccessMiddleware,async(req,res)=>{
     res.send(response)
 })
 
+postsAPI.get('/get-tasks-by-name',DBAccessMiddleware,async(req,res)=>{
+    if(req.postsCollection)
+    {
+        let response = await req.postsCollection.find({"username":req.query.username}).toArray()
+        res.send(response)
+    }
+    else{res.send([])}
+})
+
+
 postsAPI.post('/edit-task',DBAccessMiddleware,async(req,res)=>{
     console.log(req.body); 
     const editItem = req.body.editItem;

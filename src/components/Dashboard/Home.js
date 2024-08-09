@@ -3,18 +3,31 @@ import ProfilePic from './profile.png'
 import './Home.css'
 import ProfileWindow from './ProfileWindow/ProfileWindow'
 
-import { Outlet } from 'react-router-dom'
+import { Outlet, useNavigate } from 'react-router-dom'
 
 function Home() {
     const [profileWindowStatus,setProfileWindowStatus] = useState(0)
     const [ProfileDropdown,setProfileDropdown] = useState(0)
+    const [navigationButton,SetNavigationButton] = useState(0)
+
+    const navigate = useNavigate();
+    
   return (
     <div>
         {
             profileWindowStatus == 0 ?
             <div>
                 <div className='home-header'>
-                    <button className='home-header-button-new'>+ new</button>
+                    {
+                        navigationButton == 0 ?
+                        <button className='home-header-button-new'
+                        onClick={()=>{SetNavigationButton(1);navigate('./new')}}
+                        >+ new</button>
+                        :
+                        <button className='home-header-button-new'
+                        onClick={()=>{SetNavigationButton(0);navigate('./')}}
+                        >Home</button>
+                    }
                     
                     <label>gouth@gmail.com</label>
                     {

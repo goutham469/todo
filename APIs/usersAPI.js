@@ -29,12 +29,17 @@ usersAPI.post('/login',DBAccessMiddleware,async(req,res)=>{
                 typeLogin:req.body.typeLogin,
                 password:req.body.password,
                 dateCreated:req.body.dateCreated,
+                lastOnline:req.body.dateCreated,
+                location:req.body.location,
                 total:0,
                 inComplete:0,
                 completed:0,
-                profilePic:'',
+                profilePic:req.body.profilePic,
                 high_security_key:String(Math.floor(Math.random()*10000+1))+String(Math.floor(Math.random()*10000+1)),
-                history:[]
+                history:[{
+                    time:req.body.dateCreated,
+                    body:"a/c created at this time"
+                }]
             })
             console.log(req.body)
             if(signup_response.acknowledged == true)
@@ -52,12 +57,17 @@ usersAPI.post('/login',DBAccessMiddleware,async(req,res)=>{
                 username:req.body.username,
                 typeLogin:req.body.typeLogin,
                 dateCreated:req.body.dateCreated,
+                lastOnline:req.body.dateCreated,
+                location:req.body.location,
                 total:0,
                 inComplete:0,
                 completed:0,
-                profilePic:'',
+                profilePic:req.body.profilePic,
                 high_security_key:String(Math.floor(Math.random()*10000+1))+String(Math.floor(Math.random()*10000+1)),
-                history:[]
+                history:[{
+                    time:req.body.dateCreated,
+                    body:"a/c created at this time"
+                }]
             })
             console.log(req.body)
             if(signup_response.acknowledged == true)

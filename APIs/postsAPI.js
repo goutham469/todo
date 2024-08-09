@@ -13,5 +13,34 @@ postsAPI.post('/create-task',DBAccessMiddleware,async(req,res)=>{
     res.send(response)
 })
 
+postsAPI.post('/edit-task',DBAccessMiddleware,async(req,res)=>{
+    console.log(req.body); 
+    const editItem = req.body.editItem;
+    const newName = req.body.newName;
+    const editTime = req.body.time
+
+    let response = await req.postsCollection.updateOne({"id":req.body.id},{$set:{[editItem]:newName}})
+    req.postsCollection.updateOne({"id":req.body.id},{$set:{lastModifiedOn:editTime}})
+    response.editItem = editItem;
+    response.newName = newName;
+
+    res.send(response);
+})
+
+postsAPI.delete('/delete-task',DBAccessMiddleware,async(req,res)=>{
+    console.log(req.body);
+
+    if(req.body.type == "permanent")
+    {
+        let response = await req.postsCollection.deleteOne({"id":req.body.id})
+        res.send(response)
+    }
+    else
+    {
+        let response = await req.postsCollection.updateOne({"id":req.body.id},{$set:{deleteTemporary:'true'}})
+        res.send(response)
+    }
+})
+ 
 
 module.exports = postsAPI;

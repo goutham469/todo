@@ -15,6 +15,10 @@ function Admin() {
         {
             setSigned(true)
         }
+        else
+        {
+            alert("This email is not authorized developer email.\n You are not allowed to acces the admin page.")
+        }
     }
 
   return (

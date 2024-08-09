@@ -15,9 +15,11 @@ console.log("db url  : ",process.env.MONGO_DB_CONNECTION_URL)
 mclient.connect(`${process.env.MONGO_DB_CONNECTION_URL}`).then(client =>{
     const DB = client.db('todo_app')
 
-    const usersCollection = DB.collection('users')
+    const usersCollection = DB.collection('users');
+    const postsCollection = DB.collection('posts');
 
     app.set('usersCollection',usersCollection);
+    app.set('postsCollection',postsCollection);
 
     console.log("connected to data base");
 }).catch(err=>{

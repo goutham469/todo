@@ -50,13 +50,14 @@ function AllUsers() {
                     <div className='allusers-profile-pic'>
                         {
                             user.profilePic ?
-                            <img src={user.profilePic}/>
+                            <img style={{borderRadius:"40px",width:"70px",marginTop:"10px"}} src={user.profilePic}/>
                             :
                             <img width="50px" height="50px" src={ProfilePicture}/>
                         }
                     </div>
                     <div>
                         <p style={{textAlign:"left",border:"1px solid white",borderRadius:"3px",padding:"2px"}}>{user.username}</p>
+                        <p>from :- {user.location.locality},{user.location.city}</p>
                     </div>
                     <div style={{textAlign:"left"}}>
                         <label>total={user.total}</label><br/>
@@ -65,7 +66,7 @@ function AllUsers() {
                     </div>
                     <div>
                         <p>a/c created on : {user.dateCreated?user.dateCreated:'not available'}</p>
-                        <p>last online : {user.history[0]&&user.history[0].date?user.history[0].date:'not available'}</p>
+                        <p>last online : {user.history[0]&&user.history[0].time?user.history[0].time:'not available'}</p>
                     </div>
                     <div style={{backgroundColor:"red",padding:"5px"}}>
                         <b style={{color:"yellow"}}>Actions</b>

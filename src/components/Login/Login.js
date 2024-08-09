@@ -4,9 +4,10 @@ import React, { useState } from 'react'
 
 import './Login.css'
 import login_to_server from './controller'
+
 import { useNavigate } from 'react-router-dom'
 
-
+ 
 function Login() { 
 
     const navigate = useNavigate();
@@ -14,7 +15,8 @@ function Login() {
     const [form_data,setForm_data] = useState({
         username:"",
         password:"",
-        typeLogin:""
+        typeLogin:"",
+        profilePic:""
     })
     const [error_data,setError_data] = useState({
         user_name_label:"username",
@@ -29,13 +31,15 @@ function Login() {
 
     async function onSuccess(response)
     {
-        console.log(response)
+        console.log(jwtDecode(response.credential))
+        const profile_pic = jwtDecode(response.credential).picture
         const email = jwtDecode(response.credential).email
         // alert(`email = ${email}`)
         setForm_data(prevData=>({...prevData,username:email}))
         setForm_data(prevData=>({...prevData,typeLogin:"googleAuth"}))
         form_data.typeLogin = "googleAuth"
         form_data.username = email
+        form_data.profilePic = profile_pic
 
         const return_data = await login_to_server(form_data)
         alert(`${return_data.status}\n message : ${return_data.message}`)

@@ -9,12 +9,16 @@ function AllUsers() {
 
     async function getData()
     {
-        let data = await fetch(`${process.env.REACT_APP_SERVER_BASE_URL}/api/user/get-all-users`)
-        // console.log(data)
-        data = await data.json()
-        console.log(data)
+        try
+        {
+            let data = await fetch(`${process.env.REACT_APP_SERVER_BASE_URL}/api/user/get-all-users`)
+            // console.log(data)
+            data = await data.json()
+            console.log(data)
 
-        setUsers(data)
+            setUsers(data)
+        }
+        catch(err){alert('unable to reach server.\nMay be your internet connection is lost ,or the server is not running!')}
 
         console.log("fetching completed")
     }

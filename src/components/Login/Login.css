@@ -2,6 +2,8 @@
     display: flex;
     justify-content: space-around;
     align-items: center;
+    background-color: black;
+    height: 100vh;
 }
 .login-header{
     text-decoration: underline;
@@ -15,6 +17,7 @@
     background-color: white;
     border-radius: 5px;
     padding: 10px;
+    margin-top: 50px;
     padding-bottom: 20px;
 } 
 .login-text-or{

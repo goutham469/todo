@@ -116,7 +116,11 @@ function Login() {
                  onClick={(event)=>{validate_form_data(event)}} 
                  className='login-button-continue'
                  >Continue</button>
+                 <br/>
+                 <br/>
+                 <label style={{textDecoration:"underline",fontSize:"10px"}} onClick={()=>navigate('/admin')}>admin login</label>
             </form>
+
         </div>
     </div>
   )

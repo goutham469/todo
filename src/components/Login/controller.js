@@ -1,8 +1,9 @@
-async function login_to_server(event,data)
-{
-    event.preventDefault();
+async function login_to_server(data)
+{ 
     
     console.log(data);
+    data.dateCreated = getDate();
+
     let response = await fetch(`${process.env.REACT_APP_SERVER_BASE_URL}/api/user/login`,{
         method:"POST",
         headers:{"Content-Type":"application/json"},
@@ -10,16 +11,18 @@ async function login_to_server(event,data)
     })
     response = await response.json()
     console.log(response)
+
     
-    if(response.login_status == true)
-    {
-        return {"status":"success"}
-    }
-    else
-    {
-        return {"status":"failed","message":response.message}
-    }
+    return response
 }
+
+function getDate()
+{
+    const date = new Date();
+
+    return date.getTime
+}
+
 
 
 export default login_to_server;

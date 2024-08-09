@@ -6,6 +6,7 @@ import Login from './components/Login/Login';
 import Home from './components/Dashboard/Home';
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 import Tasks from './components/Dashboard/Tasks/Tasks';
+import Admin from './components/Admin/Admin';
 
 function App() {
   console.log(process.env.REACT_APP_SERVER_BASE_URL)
@@ -24,6 +25,10 @@ function App() {
           element:<Tasks/>
         }
       ]
+    },
+    {
+      path:'admin',
+      element:<Admin/>
     }
   ])
 

@@ -1,27 +1,14 @@
 const exp = require('express')
 const rootAPI = exp.Router()
+const usersAPI = require('./APIs/usersAPI')
+const postsAPI = require('./APIs/postsAPI')
+
 
 rootAPI.get('/',(req,res)=>{
     res.send("rootAPI speaking")
 })
 
-let users = [
-    {
-        name:"goutham",
-        class:"it-c"
-    },
-    {
-        name:"reddy",
-        class:"cse"
-    },
-    {
-        name:"gouth",
-        class:"mechanical"
-    }
-]
-
-rootAPI.get('/users',(req,res)=>{
-    res.send(users)
-})
+rootAPI.use('/user',usersAPI)
+rootAPI.use('/posts',postsAPI)
 
 module.exports = rootAPI;

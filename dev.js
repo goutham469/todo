@@ -5,9 +5,24 @@ const rootAPI = require('./rootAPI')
 const cors = require('cors')
 
 require('dotenv').config()
+let mclient = require('mongodb').MongoClient
 
 app.use(exp.json())
 app.use(cors())
+
+console.log("db url  : ",process.env.MONGO_DB_CONNECTION_URL)
+
+mclient.connect(`${process.env.MONGO_DB_CONNECTION_URL}`).then(client =>{
+    const DB = client.db('todo_app')
+
+    const usersCollection = DB.collection('users')
+
+    app.set('usersCollection',usersCollection);
+
+    console.log("connected to data base");
+}).catch(err=>{
+    console.log("error at connecting to mongoDB",err)
+})
 
 app.use(exp.static(path.join(__dirname,'build')))
 

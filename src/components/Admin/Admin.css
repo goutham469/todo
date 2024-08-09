@@ -1,0 +1,16 @@
+.admin-login-form{
+    margin: 5vw;
+    padding: 30px;
+    text-align: center;
+    background-color: black;
+    color: white;
+    border-radius: 10px;
+    width: fit-content;
+}
+.admin-dashboard{
+    /* background-color: black;
+    color: white; */
+    height: 90vh;
+    overflow-y: scroll;
+    text-align: center;
+}

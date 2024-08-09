@@ -4,20 +4,77 @@ import React, { useState } from 'react'
 
 import './Login.css'
 import login_to_server from './controller'
+import { useNavigate } from 'react-router-dom'
 
 
 function Login() { 
+
+    const navigate = useNavigate();
     
     const [form_data,setForm_data] = useState({
-        email:"",
-        password:""
+        username:"",
+        password:"",
+        typeLogin:""
+    })
+    const [error_data,setError_data] = useState({
+        user_name_label:"username",
+        password_label:"password",
+        user_name_color:"black",
+        passsword_color:"black",
+        user_name_input_border_color:"black",
+        password_input_border_color:"black",
+        login_button_border_color:"black",
+        login_button_text_color:"green"
     })
 
-    function onSuccess(response)
+    async function onSuccess(response)
     {
         console.log(response)
         const email = jwtDecode(response.credential).email
-        alert(`email = ${email}`)
+        // alert(`email = ${email}`)
+        setForm_data(prevData=>({...prevData,username:email}))
+        setForm_data(prevData=>({...prevData,typeLogin:"googleAuth"}))
+        form_data.typeLogin = "googleAuth"
+        form_data.username = email
+
+        const return_data = await login_to_server(form_data)
+        alert(`${return_data.status}\n message : ${return_data.message}`)
+
+        if(return_data.status == "success")
+        {
+            navigate('/home');
+        }
+    }
+    async function validate_form_data(event)
+    {
+        event.preventDefault();
+        if(form_data.username)
+        {
+            setError_data(prevData=>({...prevData,user_name_label:"username",user_name_color:"black",user_name_input_border_color:"black",login_button_border_color:"black",login_button_text_color:"black"}))
+        }
+        else
+        {
+            setError_data(prevData=>({...prevData,user_name_label:"username",user_name_color:"red",user_name_input_border_color:"red",login_button_border_color:"red",login_button_text_color:"red"}))
+        }
+        if(form_data.password)
+        {
+            setError_data(prevData=>({...prevData,password_label:"password",passsword_color:"black",password_input_border_color:"black",login_button_border_color:"black",login_button_text_color:"black"}))
+        }
+        else
+        {
+            setError_data(prevData=>({...prevData,password_label:"password",passsword_color:"red",password_input_border_color:"red",login_button_border_color:"red",login_button_text_color:"red"}))
+        }
+
+        setForm_data(prevData=>({...prevData,typeLogin:"manual"}))
+        form_data.typeLogin = "manual"
+         
+        const return_data = await login_to_server(form_data)
+        alert(`${return_data.status}\n message : ${return_data.message}`)
+        if(return_data.status == "success")
+        {
+            navigate('/home');
+        }
+
     }
 
   return (
@@ -36,17 +93,25 @@ function Login() {
             <hr></hr>
             <label className='login-text-or'> (or) </label>
             <form>
-                <label className='login-label-email'>username</label>
+                <label style={{color:error_data.user_name_color}} className='login-label-email'>{error_data.user_name_label}</label>
                 <br/>
-                <input onChange={(event)=>setForm_data(prevData=>({...prevData,email:event.target.value}))}
+                <input style={{borderColor:error_data.user_name_input_border_color}}
+                 onChange={(event)=>setForm_data(prevData=>({...prevData,username:event.target.value}))}
                  type='text' className='login-input-email'/>
                 <br/>
-                <label className='login-label-password'>password</label>
+
+                <label style={{color:error_data.passsword_color}} className='login-label-password'>{error_data.password_label}</label>
                 <br/>
-                <input onChange={(event)=>setForm_data(prevData=>({...prevData,password:event.target.value}))}
+                <input style={{borderColor:error_data.password_input_border_color}}
+                 onChange={(event)=>setForm_data(prevData=>({...prevData,password:event.target.value}))}
                  type='password' className='login-input-password'/>
                 <br/>
-                <button onClick={(event)=>{login_to_server(event,form_data)}} className='login-button-continue'>Continue</button>
+
+                <button
+                    style={{borderColor:error_data.login_button_border_color,color:error_data.login_button_text_color}}
+                 onClick={(event)=>{validate_form_data(event)}} 
+                 className='login-button-continue'
+                 >Continue</button>
             </form>
         </div>
     </div>

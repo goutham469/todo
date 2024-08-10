@@ -17,6 +17,9 @@ postsAPI.get('/get-tasks-by-name',DBAccessMiddleware,async(req,res)=>{
     if(req.postsCollection)
     {
         let response = await req.postsCollection.find({"username":req.query.username}).toArray()
+        console.log(response)
+        console.log(response.filter(x=>x.deleteTemporary=='false'))
+        response = response.filter(x=>x.deleteTemporary=='false')
         res.send(response)
     }
     else{res.send([])}

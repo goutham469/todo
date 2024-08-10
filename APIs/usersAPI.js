@@ -44,7 +44,7 @@ usersAPI.post('/login',DBAccessMiddleware,async(req,res)=>{
             console.log(req.body)
             if(signup_response.acknowledged == true)
             {
-                res.send({status:"success",message:"new account, welcome to TO-DO APP.Enjoy using the application"})
+                res.send({status:"success",message:"new account, welcome to TO-DO APP.Enjoy using the application",userData:null,tasks:[]})
             }
             else
             {
@@ -72,7 +72,7 @@ usersAPI.post('/login',DBAccessMiddleware,async(req,res)=>{
             console.log(req.body)
             if(signup_response.acknowledged == true)
             {
-                res.send({status:"success",message:"new account, welcome to TO-DO APP.Enjoy using the application"})
+                res.send({status:"success",message:"new account, welcome to TO-DO APP.Enjoy using the application",userData:null,tasks:[]})
             }
             else
             {
@@ -88,7 +88,10 @@ usersAPI.post('/login',DBAccessMiddleware,async(req,res)=>{
         {
             if(response.password == req.body.password)
             {
-                res.send({status:"success",message:"login success"})
+                let user_tasks = await fetch(`${process.env.REACT_APP_SERVER_BASE_URL}/api/posts/get-tasks-by-name/?username=${response.username}`);
+                user_tasks = await user_tasks.json();
+
+                res.send({status:"success",message:"login success",userData:response,tasks:user_tasks})
             }
             else
             {
@@ -97,7 +100,10 @@ usersAPI.post('/login',DBAccessMiddleware,async(req,res)=>{
         }
         else if(req.body.typeLogin == "googleAuth")
         {
-            res.send({status:"success",message:"login success"})
+            let user_tasks = await fetch(`${process.env.REACT_APP_SERVER_BASE_URL}/api/posts/get-tasks-by-name/?username=${response.username}`);
+            user_tasks = await user_tasks.json();
+
+            res.send({status:"success",message:"login success",userData:response,tasks:user_tasks})
         }
     }
 })

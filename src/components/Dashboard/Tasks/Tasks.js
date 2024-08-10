@@ -1,8 +1,15 @@
 import React, { useEffect, useState } from 'react'
 import './Tasks.css'
 import CreateTask from '../CreateTask/CreateTask'
+import store from '../../../store'
+
+import deleteImg from './delete.png'
+import { useNavigate } from 'react-router-dom'
 
 function Tasks() {
+
+    const navigate = useNavigate();
+
     const [navigatorTasks,SetNavigatorTasks] = useState(0)
     const [navigatorOutlet,setNavigatorOutlet] = useState(0)
 
@@ -21,7 +28,7 @@ function Tasks() {
     {
         try
         {
-            let result = await fetch(`${process.env.REACT_APP_SERVER_BASE_URL}/api/posts/get-tasks-by-name/?username=goutham`)
+            let result = await fetch(`${process.env.REACT_APP_SERVER_BASE_URL}/api/posts/get-tasks-by-name/?username=${store.getState().username}`)
             result = await result.json();
             setTasks(result);
         }
@@ -29,14 +36,27 @@ function Tasks() {
     }
 
     useEffect(()=>{
-        getData();
-    },[tasks])
+        // console.log(localStorage.getItem('signed'))
+        if(localStorage.getItem('signed')=='false')
+        {
+            navigate('/')
+        }
+        else
+        {
+            store.dispatch({type:'get_data'});// essential sets the localStorage data to store
+            // console.log(store.getState()) // verify the store data after dispatch
+            setTasks(store.getState().tasks) // adds predifined tasks to the empty array as initialization.
+            getData();// fetches for any updates
+        }
+        
+    },[])
 
     async function update_changes(event,update_type,task_id)
     {
         event.preventDefault();
         const cur_time = new Date(); 
-        console.log(cur_time)
+        // console.log(cur_time)
+
 
        try
        {
@@ -74,7 +94,7 @@ function Tasks() {
     {
         event.preventDefault();
         const cur_time = new Date(); 
-        console.log(cur_time)
+        // console.log(cur_time)
 
        try
        {
@@ -108,6 +128,24 @@ function Tasks() {
        catch(err){alert("unable to fetch the server , may be the server is not working or internet problem,")}
     }
 
+    function deleteTask(id)
+    {
+        fetch(`${process.env.REACT_APP_SERVER_BASE_URL}/api/posts/delete-task`,{
+            method:"DELETE",
+            headers:{"Content-Type":"application/json"},
+            body:JSON.stringify({id:id})
+        }).then(data=>data.json()).then(data=>{if(data.acknowledged){
+            setTasks(prevData=>prevData.map(task=>{
+                if(task.id != id)
+                {
+                    return task;
+                }
+            }))
+            alert("deleted")
+            getData();
+        }})
+    }
+
 
 
   return (
@@ -121,21 +159,24 @@ function Tasks() {
                             <h4>Incomplete tasks</h4>
                             {
                                 tasks.map(task=>
-                                task.status == "incomplete" && 
+                                task&&task.status == "incomplete" && 
                                 <div className='task-item'
                                 onClick={()=>setNavigatorOutlet(task.id)}
                                 >
-                                    <button className='tasks-change-status-button' 
-                                    onClick={(event)=>{
-                                        setTaskStatus(task.status == 'completed'?'incomplete':'completed');
-                                        setTaskDivChange(false);
-                                        update_changes_status(event,task.status,task.id);
+                                    <div style={{display:"flex",justifyContent:"space-around",marginTop:"5px"}}>
+                                        <button className='tasks-change-status-button' 
+                                        onClick={(event)=>{
+                                            setTaskStatus(task.status == 'completed'?'incomplete':'completed');
+                                            setTaskDivChange(false);
+                                            update_changes_status(event,task.status,task.id);
 
-                                    }}>{task.status == 'completed'?'set as incomplete':'set as completed'}</button>
+                                        }}>{task.status == 'completed'?'set as incomplete':'set as completed'}</button>
+                                        <img src={deleteImg} width="20px" onClick={()=>deleteTask(task.id)}/>
+                                    </div>
                                     <br/>
                                     <b>{task.title}</b>
-                                    <p>created on : {task.createdOn}</p>
                                     <p>{task.body}</p>
+                                    <p>created on : {task.createdOn}</p>
                                     <p>last modified on : {task.lastModifiedOn}</p>
 
                                 </div>
@@ -149,7 +190,7 @@ function Tasks() {
                             <h4>completed tasks</h4>
                             {
                                 tasks.map(task=>
-                                task.status == "completed" && 
+                                task&&task.status == "completed" && 
                                 <div className='task-item'
                                 onClick={()=>setNavigatorOutlet(task.id)}
                                 >
@@ -161,8 +202,8 @@ function Tasks() {
                                     }}>{task.status == 'completed'?'set as incomplete':'set as completed'}</button>
                                     <br/>
                                     <b>{task.title}</b>
-                                    <p>created on : {task.timeCreated},{task.timeCreated}</p>
                                     <p>{task.body}</p>
+                                    <p>created on : {task.timeCreated},{task.timeCreated}</p>
                                     <p>last modified on : {task.timeEdited},{task.dateEdited}</p>
 
                                 </div>
@@ -198,7 +239,7 @@ function Tasks() {
                 <div className='tasks-outlet'>
                     {
                         tasks.map(task=>
-                        task.id == navigatorOutlet && 
+                        task&&task.id == navigatorOutlet && 
                         <div>
                             {
                                 titleChange ?

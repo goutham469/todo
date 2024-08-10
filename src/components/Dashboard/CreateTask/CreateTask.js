@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
+import store from '../../../store';
+
 import './CreateTask.css'
 
 function CreateTask() {
@@ -16,7 +18,7 @@ function CreateTask() {
   });
 
   const [isSubmitting, setIsSubmitting] = useState(false);
-
+  
   async function postTask(event) 
   {
     event.preventDefault();
@@ -32,8 +34,8 @@ function CreateTask() {
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify({
             id: date.getTime(),
-            username: '',
-            securityKey: "12345678",
+            username:store.getState().username,
+            securityKey: store.getState().userData.high_security_key,
             title: title,
             body: body,
             status: "incomplete",
@@ -63,14 +65,14 @@ function CreateTask() {
   function validate() {
     let returnStatus = true;
 
-    if (title.trim()) {
+    if (title) {
       setErrorMsg(prevData => ({ ...prevData, title: '' }));
     } else {
       setErrorMsg(prevData => ({ ...prevData, title: 'Empty title not accepted!' }));
       returnStatus = false;
     }
 
-    if (body.trim()) {
+    if (body) {
       setErrorMsg(prevData => ({ ...prevData, body: '' }));
     } else {
       setErrorMsg(prevData => ({ ...prevData, body: 'Empty body not accepted!' }));
@@ -95,7 +97,8 @@ function CreateTask() {
             onChange={(event) => setTitle(event.target.value)}
             style={{ border: errorMsg.title ? "2px solid red" : "1px solid black" }}
           />
-          {errorMsg.title && <p style={{ color: 'red' }}>{errorMsg.title}</p>}
+          <br/>
+          {errorMsg.title && <label style={{ color: 'red' }}>{errorMsg.title}</label>}
           <br />
           <textarea
             value={body}
@@ -104,13 +107,13 @@ function CreateTask() {
             onChange={(event) => setBody(event.target.value)}
             style={{ border: errorMsg.body ? "2px solid red" : "1px solid black" }}
           />
-          {errorMsg.body && <p style={{ color: 'red' }}>{errorMsg.body}</p>}
+          <br/>
+          {errorMsg.body && <label style={{ color: 'red' }}>{errorMsg.body}</label>}
           <br />
           <center>
             <button
               className='create-new-task-button'
               onClick={(event) => postTask(event)}
-              disabled={isSubmitting || !title.trim() || !body.trim()}
             >
               {isSubmitting ? "Adding..." : "Add task"}
             </button>

@@ -1,14 +1,30 @@
 import { GoogleLogin, GoogleOAuthProvider } from '@react-oauth/google'
 import { jwtDecode } from 'jwt-decode'
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 
 import './Login.css'
 import login_to_server from './controller'
 
 import { useNavigate } from 'react-router-dom'
 
+import store from '../../store'
+
+
+
  
 function Login() { 
+    useEffect(()=>{
+        console.log(store.getState())
+        if(store.getState()&&store.getState().signed=='true')
+        {
+            navigate('/home')
+        }
+        else
+        {
+            console.log("not authorized");
+            console.log(store.getState())
+        }
+    },[])
 
     const navigate = useNavigate();
     
@@ -46,6 +62,7 @@ function Login() {
 
         if(return_data.status == "success")
         {
+            console.log(store.getState())
             navigate('/home');
         }
     }

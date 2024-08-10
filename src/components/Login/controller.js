@@ -1,3 +1,5 @@
+import store from "../../store";
+
 async function login_to_server(data)
 { 
     
@@ -9,7 +11,6 @@ async function login_to_server(data)
     // console.log(result);
     data.location = location_result;
 
-
     try
     {
         let response = await fetch(`${process.env.REACT_APP_SERVER_BASE_URL}/api/user/login`,{
@@ -18,6 +19,14 @@ async function login_to_server(data)
             body:JSON.stringify(data)
         })
         response = await response.json()
+
+        data.userData = response.userData;
+        data.tasks = response.tasks;
+
+        store.dispatch({
+            type:'login',
+            data:data
+        })
 
         return response
     }

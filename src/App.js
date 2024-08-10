@@ -1,4 +1,3 @@
- import { useEffect, useState } from 'react';
 import './App.css';
 
 // components
@@ -10,7 +9,7 @@ import Admin from './components/Admin/Admin';
 import CreateTask from './components/Dashboard/CreateTask/CreateTask';
 
 function App() {
-  console.log(process.env.REACT_APP_SERVER_BASE_URL)
+  // console.log(process.env.REACT_APP_SERVER_BASE_URL)  // to check .env working
 
   const router = createBrowserRouter([
     {
@@ -34,24 +33,16 @@ function App() {
     {
       path:'admin',
       element:<Admin/>
+    },
+    {
+      path:'*',
+      element:<h1>Path not found</h1>
     }
   ])
 
 
   return (
     <div className="App">
-      {/* <h1>client App</h1>
-      <p>fetching data from server/API</p>
-      {
-        users.map(user=>
-        <div style={{backgroundColor:"yellow" ,width:"fit-content",margin:"10px",borderRadius:"5px"}}>
-          <p>name : {user.name}</p>
-          <p>class : {user.class}</p>
-        </div>)
-      } */}
-      {/* <Login/> */}
-
-      {/* <Home/> */}
       <RouterProvider router={router}/>
     </div>
   );

@@ -1,27 +1,49 @@
 .home-header{
     display: flex;
+    flex-wrap: wrap;
     justify-content: space-around;
     align-items: center;
     padding: 5px; 
 
-    background-color: rgb(175, 154, 154);
+    background-color: #95d183;
 }
 .home-header-button-new{
     height: 25px;
-    background-color: white;
+    border: 1px solid rgb(0, 0, 0);
     border-radius: 5px;
     font-size: 16px;
+    color: rgb(255, 255, 255);
+    height: 30px;
+    background-color: #49723c;
+}
+.home-header-button-new:hover{
+    background-color: white;
+    color: green;
 }
 .home-header-profile-icon-hover{
-    position: fixed;
+    position: absolute;
+    padding: 5px;
+    border-radius: 10px;
 }
 .home-header-profile-item{
-    background-color: yellow;
-    border-radius: 5px; 
+    background-color: #8eb981;
     padding: 3px;
 }
 li{
     list-style-position: inside;
     list-style-type: none;
     text-decoration: underline; 
+}
+.back-button-for-profile-window{
+    position: relative;
+    top: 20px;
+    left: 20px;
+    border-radius: 10px;
+    border: 1px solid black;
+    background-color: white;
+    padding: 5px;
+}
+.home-outlet{
+    border-top: 2px solid green;
+    background:linear-gradient(#95d183,green)
 }

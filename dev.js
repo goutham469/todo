@@ -35,7 +35,7 @@ app.use('/api',rootAPI)
 
 app.get('*',(req,res)=>{
     // console.log(path.join(__dirname,"./build"))
-    res.sendFile(path.join(__dirname,"./build"))
+    res.sendFile(path.join(__dirname,"./build","index.html"))
     
 })
  

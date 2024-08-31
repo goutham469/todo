@@ -100,44 +100,47 @@ function Login() {
 
   return (
     <div className='login-parent'>
-        <div className='login-child'>
-            <p className='login-header'>Login/ Sign up</p>
-            <p>Continue with </p>
-            <GoogleOAuthProvider clientId={process.env.REACT_APP_GOOGLE_OAUTH_CLIENT_ID}>
-                <GoogleLogin
-                buttonText="continue with google"
-                onSuccess={onSuccess}
-                >
-                </GoogleLogin> 
-            </GoogleOAuthProvider>
-            <br/>
-            <hr></hr>
-            <label className='login-text-or'> (or) </label>
-            <form>
-                <label style={{color:error_data.user_name_color}} className='login-label-email'>{error_data.user_name_label}</label>
+        <div>
+            <center><h1 style={{color:"gold"}}>Todo list app</h1></center>
+            <div className='login-child'>
+                <b className='login-header'>Login/ Sign up</b>
+                <p>Continue with </p>
+                <GoogleOAuthProvider clientId={process.env.REACT_APP_GOOGLE_OAUTH_CLIENT_ID}>
+                    <GoogleLogin
+                    buttonText="continue with google"
+                    onSuccess={onSuccess}
+                    >
+                    </GoogleLogin> 
+                </GoogleOAuthProvider>
                 <br/>
-                <input style={{borderColor:error_data.user_name_input_border_color}}
-                 onChange={(event)=>setForm_data(prevData=>({...prevData,username:event.target.value}))}
-                 type='text' className='login-input-email'/>
-                <br/>
+                <hr></hr> 
+                <label className='login-text-or'> (or) </label>
+                <form>
+                    <label style={{color:error_data.user_name_color}} className='login-label-email'>{error_data.user_name_label}</label>
+                    <br/>
+                    <input style={{borderColor:error_data.user_name_input_border_color}}
+                    onChange={(event)=>setForm_data(prevData=>({...prevData,username:event.target.value}))}
+                    type='text' className='login-input-email'/>
+                    <br/>
 
-                <label style={{color:error_data.passsword_color}} className='login-label-password'>{error_data.password_label}</label>
-                <br/>
-                <input style={{borderColor:error_data.password_input_border_color}}
-                 onChange={(event)=>setForm_data(prevData=>({...prevData,password:event.target.value}))}
-                 type='password' className='login-input-password'/>
-                <br/>
+                    <label style={{color:error_data.passsword_color}} className='login-label-password'>{error_data.password_label}</label>
+                    <br/>
+                    <input style={{borderColor:error_data.password_input_border_color}}
+                    onChange={(event)=>setForm_data(prevData=>({...prevData,password:event.target.value}))}
+                    type='password' className='login-input-password'/>
+                    <br/>
 
-                <button
-                    style={{borderColor:error_data.login_button_border_color,color:error_data.login_button_text_color}}
-                 onClick={(event)=>{validate_form_data(event)}} 
-                 className='login-button-continue'
-                 >Continue</button>
-                 <br/>
-                 <br/>
-                 <label style={{textDecoration:"underline",fontSize:"10px"}} onClick={()=>navigate('/admin')}>admin login</label>
-            </form>
+                    <button
+                        style={{borderColor:error_data.login_button_border_color,color:error_data.login_button_text_color}}
+                    onClick={(event)=>{validate_form_data(event)}} 
+                    className='login-button-continue'
+                    >Continue</button>
+                    <br/>
+                    <br/>
+                    <label style={{textDecoration:"underline",fontSize:"10px"}} onClick={()=>navigate('/admin')}>admin login</label>
+                </form>
 
+            </div>
         </div>
     </div>
   )

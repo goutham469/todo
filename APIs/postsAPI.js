@@ -7,7 +7,7 @@ postsAPI.get('/',(req,res)=>{
 })
 
 postsAPI.post('/create-task',DBAccessMiddleware,async(req,res)=>{
-    console.log(req.body);
+    // console.log(req.body);
     
     let response = await req.postsCollection.insertOne(req.body)
     res.send(response)
@@ -17,8 +17,8 @@ postsAPI.get('/get-tasks-by-name',DBAccessMiddleware,async(req,res)=>{
     if(req.postsCollection)
     {
         let response = await req.postsCollection.find({"username":req.query.username}).toArray()
-        console.log(response)
-        console.log(response.filter(x=>x.deleteTemporary=='false'))
+        // console.log(response)
+        // console.log(response.filter(x=>x.deleteTemporary=='false'))
         response = response.filter(x=>x.deleteTemporary=='false')
         res.send(response)
     }
@@ -27,7 +27,7 @@ postsAPI.get('/get-tasks-by-name',DBAccessMiddleware,async(req,res)=>{
 
 
 postsAPI.post('/edit-task',DBAccessMiddleware,async(req,res)=>{
-    console.log(req.body); 
+    // console.log(req.body); 
     const editItem = req.body.editItem;
     const newName = req.body.newName;
     const editTime = req.body.time
@@ -41,7 +41,7 @@ postsAPI.post('/edit-task',DBAccessMiddleware,async(req,res)=>{
 })
 
 postsAPI.delete('/delete-task',DBAccessMiddleware,async(req,res)=>{
-    console.log(req.body);
+    // console.log(req.body);
 
     if(req.body.type == "permanent")
     {

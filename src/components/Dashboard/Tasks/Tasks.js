@@ -172,12 +172,12 @@ function Tasks() {
 
                                         }}>{task.status == 'completed'?'set as incomplete':'set as completed'}</button>
                                         <img src={deleteImg} width="20px" onClick={()=>deleteTask(task.id)}/>
-                                    </div>
-                                    <br/>
-                                    <b>{task.title}</b>
-                                    <p>{task.body}</p>
-                                    <p>created on : {task.createdOn}</p>
-                                    <p>last modified on : {task.lastModifiedOn}</p>
+                                    </div> 
+                                    <b style={{marginLeft:"15px",fontFamily:"cursive"}}>{task.title}</b>
+                                    <hr style={{width:"90%"}}/>
+                                    <label style={{fontFamily:"monospace",marginTop:"0px",paddingTop:"0px"}}>{task.body}</label>
+                                    {/* <p>created on : {task.createdOn}</p>
+                                    <p>last modified on : {task.lastModifiedOn}</p> */}
 
                                 </div>
                                 )
@@ -230,66 +230,68 @@ function Tasks() {
             </div>
         </div>
         <div className='tasks-content'>
-            {
-                navigatorOutlet == 0 ?
-                <div>
-                    <CreateTask/>
-                </div>
-                :
-                <div className='tasks-outlet'>
-                    {
-                        tasks.map(task=>
-                        task&&task.id == navigatorOutlet && 
-                        <div>
-                            {
-                                titleChange ?
-                                <div>
-                                    <input value={title} onChange={(event)=>setTitle(event.target.value)}/>
-                                    <button onClick={(event)=>{setTitleChange(false);update_changes(event,"title",task.id)}}>save</button>
-                                </div>
-                                :
-                                <b 
-                                    className='tasks-task-title'
-                                    onClick={()=>{setTitleChange(true);setTitle(task.title);}}
-                                > {task.title}
-                                </b>
-                            }
-                            <br/>
-                            {
-                                taskDivChange ?
-                                <button onClick={(event)=>{
-                                    setTaskStatus(task.status == 'completed'?'incomplete':'completed');
-                                    setTaskDivChange(false);
-                                    update_changes_status(event,task.status,task.id);
+            <div>
+                {
+                    navigatorOutlet == 0 ?
+                    <div>
+                        <CreateTask/>
+                    </div>
+                    :
+                    <div className='tasks-outlet'>
+                        {
+                            tasks.map(task=>
+                            task&&task.id == navigatorOutlet && 
+                            <div>
+                                {
+                                    titleChange ?
+                                    <div>
+                                        <input value={title} onChange={(event)=>setTitle(event.target.value)}/>
+                                        <button onClick={(event)=>{setTitleChange(false);update_changes(event,"title",task.id)}}>save</button>
+                                    </div>
+                                    :
+                                    <b 
+                                        className='tasks-task-title'
+                                        onClick={()=>{setTitleChange(true);setTitle(task.title);}}
+                                    > {task.title}
+                                    </b>
+                                }
+                                <br/>
+                                {
+                                    taskDivChange ?
+                                    <button onClick={(event)=>{
+                                        setTaskStatus(task.status == 'completed'?'incomplete':'completed');
+                                        setTaskDivChange(false);
+                                        update_changes_status(event,task.status,task.id);
 
-                                }}>{task.status == 'completed'?'set as incomplete':'set as completed'}</button>
-                                :
-                                <sub onClick={()=>{setTaskDivChange(true)}}>status : {task.status}</sub>
-                            }
-                            <br/>
-                            <label>created on : {task.createdOn}</label>
-                            <br/>
-                            <label>last modified on : {task.lastModifiedOn}</label>
-                            <br/>
-                            {
-                                bodyChange ?
-                                <div>
-                                    <textarea style={{height:"100px",width:"200px"}} value={body} onChange={(event)=>setBody(event.target.value)}></textarea>
-                                    <br/>
-                                    <button onClick={(event)=>{setBodyChange(false);update_changes(event,"body",task.id)}}>save</button>
-                                </div>
-                                :
-                                <b 
-                                    className='tasks-task-title'
-                                    onClick={()=>{setBodyChange(true);setBody(task.body);}}
-                                > {task.body}
-                                </b>
-                            } 
-                        </div>
-                    )
-                    }
-                </div>
-            }
+                                    }}>{task.status == 'completed'?'set as incomplete':'set as completed'}</button>
+                                    :
+                                    <sub onClick={()=>{setTaskDivChange(true)}}>status : {task.status}</sub>
+                                }
+                                <br/>
+                                <label>created on : {task.createdOn.substring(0,10)}</label>
+                                <br/>
+                                <label>last modified on : {task.lastModifiedOn.substring(4,15)}</label>
+                                <br/>
+                                {
+                                    bodyChange ?
+                                    <div>
+                                        <textarea style={{height:"100px",width:"200px"}} value={body} onChange={(event)=>setBody(event.target.value)}></textarea>
+                                        <br/>
+                                        <button onClick={(event)=>{setBodyChange(false);update_changes(event,"body",task.id)}}>save</button>
+                                    </div>
+                                    :
+                                    <b 
+                                        className='tasks-task-title'
+                                        onClick={()=>{setBodyChange(true);setBody(task.body);}}
+                                    > {task.body}
+                                    </b>
+                                } 
+                            </div>
+                        )
+                        }
+                    </div>
+                }
+            </div>
         </div>
     </div>
   )

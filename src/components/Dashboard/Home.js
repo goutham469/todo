@@ -6,11 +6,18 @@ import ProfileWindow from './ProfileWindow/ProfileWindow'
 import store from '../../store'
 
 import { Outlet, useNavigate } from 'react-router-dom'
+import { useSelector } from 'react-redux'
 
 function Home() {
+    console.log(store.getState())
     const [profileWindowStatus,setProfileWindowStatus] = useState(0)
     const [ProfileDropdown,setProfileDropdown] = useState(0)
     const [navigationButton,SetNavigationButton] = useState(0)
+
+    function handleDataFromChild(data)
+    {
+        setProfileWindowStatus(0)
+    }
 
     const navigate = useNavigate();
 
@@ -72,12 +79,11 @@ function Home() {
                             {
                                 <div>
                                     <center>
-                                        <img style={{borderRadius:"50px"}} width="70px" src={store.getState().userData.profilePic} 
+                                        <img style={{borderRadius:"50px"}} width="40px" src={store.getState().userData.profilePic} 
 
                                         onClick={()=>{setProfileWindowStatus(1)}}
                                         ></img>
                                     </center>
-                                    <center><label>settings</label></center>
                                 </div>
                             }
                         </div>
@@ -111,7 +117,7 @@ function Home() {
                         </div>
                     }
                     
-                </div>
+                </div> 
 
                 <div className='home-outlet'>
                     <Outlet/>
@@ -119,10 +125,7 @@ function Home() {
             </div>
             :
             <div>
-                <button className='back-button-for-profile-window' onClick={()=>{setProfileWindowStatus(0)}}>
-                    <label style={{fontSize:"20px"}}>&larr;</label>Back
-                </button>
-                <ProfileWindow/>
+                <ProfileWindow getDataFromChild={handleDataFromChild}/>
             </div>
         }
 

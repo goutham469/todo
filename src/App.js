@@ -7,6 +7,8 @@ import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 import Tasks from './components/Dashboard/Tasks/Tasks';
 import Admin from './components/Admin/Admin';
 import CreateTask from './components/Dashboard/CreateTask/CreateTask';
+import { Provider } from 'react-redux';
+import store from './store';
 
 function App() {
   // console.log(process.env.REACT_APP_SERVER_BASE_URL)  // to check .env working
@@ -40,10 +42,14 @@ function App() {
     }
   ])
 
+  console.log(store.getState())
+
 
   return (
     <div className="App">
-      <RouterProvider router={router}/>
+      <Provider store={store}>
+        <RouterProvider router={router}/>
+      </Provider>
     </div>
   );
 }

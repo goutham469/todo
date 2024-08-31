@@ -4,7 +4,8 @@ function reducer(state={
     "username":'',
     "typeUser":'',
     "userData":{},
-    "tasks":[]
+    "tasks":[],
+    "set_profile_window_status":0
 },action)
 {
     
@@ -23,6 +24,7 @@ function reducer(state={
             localStorage.setItem( 'password',action.data.password);
             localStorage.setItem('userData',JSON.stringify(action.data.userData));
             localStorage.setItem('tasks',JSON.stringify(action.data.tasks));
+            localStorage.setItem('profileWindowStatus',0)
 
             return {
                     ...state,
@@ -64,6 +66,16 @@ function reducer(state={
                     tasks:prevData.tasks,
                     userData:prevData.userData
                 };
+        case 'set_profile_window_status' :
+            if(localStorage.profileWindowStatus == 0)
+            {
+                localStorage.setItem('profileWindowStatus',1)
+            }
+            else
+            {
+                localStorage.setItem('profileWindowStatus',0)
+            }
+            return state
         default :
                prevData.signed = localStorage.getItem('signed');
                prevData.username = localStorage.getItem('username');

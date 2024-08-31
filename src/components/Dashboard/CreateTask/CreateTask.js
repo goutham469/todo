@@ -83,7 +83,7 @@ function CreateTask() {
   }
 
   return (
-    <div>
+    <div style={{height:"80vh"}}>
       <center>
         <p>Create Task</p>
       </center>

@@ -4,6 +4,10 @@
     align-items: center;
     background-color: black;
     height: 100vh;
+    /* background-image: url('./background.jpg'); */
+    background-image: url('./image.png');
+    background-repeat: no-repeat; 
+    background-size: cover;
 }
 .login-header{
     text-decoration: underline;

@@ -7,7 +7,7 @@ usersAPI.get('/',(req,res)=>{
 })
 
 usersAPI.post('/create-user',DBAccessMiddleware,async(req,res)=>{
-    console.log(req.body);  
+    // console.log(req.body);  
 
     let response =  await req.usersCollection.insertOne(req.body);
     res.send(response) 
@@ -15,7 +15,7 @@ usersAPI.post('/create-user',DBAccessMiddleware,async(req,res)=>{
 })
 
 usersAPI.post('/login',DBAccessMiddleware,async(req,res)=>{
-    console.log(req.body);
+    // console.log(req.body);
 
     let response = await req.usersCollection.find({"username":req.body.username}).toArray()
     // console.log(response)
@@ -41,7 +41,7 @@ usersAPI.post('/login',DBAccessMiddleware,async(req,res)=>{
                     body:"a/c created at this time"
                 }]
             })
-            console.log(req.body)
+            // console.log(req.body)
             if(signup_response.acknowledged == true)
             {
                 res.send({status:"success",message:"new account, welcome to TO-DO APP.Enjoy using the application",userData:null,tasks:[]})
@@ -69,7 +69,7 @@ usersAPI.post('/login',DBAccessMiddleware,async(req,res)=>{
                     body:"a/c created at this time"
                 }]
             })
-            console.log(req.body)
+            // console.log(req.body)
             if(signup_response.acknowledged == true)
             {
                 res.send({status:"success",message:"new account, welcome to TO-DO APP.Enjoy using the application",userData:null,tasks:[]})
